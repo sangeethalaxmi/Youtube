@@ -12,7 +12,10 @@ const VideoCard = ({ info }) => {
           alt="thumbnails"
         ></img>
         <ul>
-          <li className="font-bold"> {title}</li>
+          <li className="font-bold w-full h-[94px] max-h-[100px] overflow-hidden line-clamp-3">
+            {" "}
+            {title}
+          </li>
           <li className="mt-2"> {channelTitle}</li>
           <li>{statistics.likeCount} views</li>
         </ul>

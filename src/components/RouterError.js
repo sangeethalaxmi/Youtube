@@ -1,16 +1,15 @@
-import React from "react";
 import { Link, useRouteError } from "react-router";
 
-const Error = () => {
-  const { data, status } = useRouteError();
-  console.log(useRouteError());
+const RouterError = () => {
+  const error = useRouteError();
+
   return (
     <main className="grid min-h-full place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">
       <div className="text-center">
-        <p className="text-xl font-semibold text-red-600">{status}</p>
+        <p className="text-xl font-semibold text-red-600">{error?.status}</p>
 
         <p className="mt-6  text-2xl font-medium text-pretty text-gray-500 sm:text-xl/8">
-          {data}
+          {error?.data ?? "Something went wrong.Try again later"}
         </p>
         <div className="mt-10 flex items-center justify-center gap-x-6">
           <Link
@@ -25,4 +24,4 @@ const Error = () => {
   );
 };
 
-export default Error;
+export default RouterError;
