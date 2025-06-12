@@ -11,7 +11,7 @@ const ResultContainer = () => {
     return <Shimmer />;
   }
   return (
-    <div className="flex flex-wrap">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-hidden mt-20">
       {videosList.map((video) => (
         <Link to={"/watch?v=" + video.id} key={video.id}>
           {/* <WithAddVideoCard info={video} /> */}

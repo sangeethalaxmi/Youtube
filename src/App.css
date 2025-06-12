@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-bg-primary: white;
+  --color-text: black;
+  --color-text-secondary: rgb(133, 135, 137);
+  --color-bg-secondary: rgb(209 213 219);
+  --color-bg-tertiary: #f3f4f6;
+}
+.dark {
+  --color-bg-primary: rgba(0, 0, 0, 0.943);
+  --color-text: white;
+  --color-bg-secondary: #272727;
+  --color-text-secondary: rgb(141, 143, 146);
+  --color-bg-tertiary: rgb(45 45 46);
+}
 @keyframes fadeShimmer {
   0%,
   100% {
@@ -18,6 +32,19 @@
 
 @layer components {
   .btn-hover {
-    @apply bg-gray-200;
+    @apply bg-secondary;
   }
+}
+
+.clamp-text {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.text-truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

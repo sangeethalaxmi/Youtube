@@ -6,6 +6,7 @@ import Shimmer from "./Shimmer";
 import { showError } from "../utils/toast";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../utils/store/appSlice";
+import { isPageBottom } from "../utils/helper";
 
 const VideoContainer = () => {
   const [videos, setVideos] = useState([]);
@@ -42,9 +43,8 @@ const VideoContainer = () => {
   }, []);
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.innerHeight + window.scrollY;
-      const currentPosition = document.body.offsetHeight - 100;
-      if (scrollPosition >= currentPosition && !isLoading && nextPageToken) {
+      if (isPageBottom() && !isLoading && nextPageToken) {
+        // throutting in react
         getPopularVideo();
       }
     };
@@ -58,7 +58,7 @@ const VideoContainer = () => {
   }
   const WithAddVideoCard = AddVideoCard(VideoCard);
   return (
-    <div className="flex flex-wrap">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-hidden ">
       {videos.map((video) => (
         <Link to={"/watch?v=" + video.id} key={video.id}>
           {/* <WithAddVideoCard info={video} /> */}

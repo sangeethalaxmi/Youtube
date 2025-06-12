@@ -11,6 +11,7 @@ import { lazy, Suspense } from "react";
 import Shimmer from "./components/Shimmer";
 import ErrorHandler from "./components/ErrorHandler";
 import Loader from "./components/Loader";
+import "./i18n";
 function App() {
   // lazy loading
   const ResultContainer = lazy(() => import("./components/ResultContainer"));
@@ -40,21 +41,16 @@ function App() {
     },
   ]);
   return (
-    <Provider store={appStore}>
-      <ErrorHandler />
-      <Loader />
+    <Suspense fallback={<Shimmer />}>
+      <Provider store={appStore}>
+        <ErrorHandler />
+        <Loader />
 
-      <ErrorBoundary>
-        <RouterProvider router={appRouter}></RouterProvider>
-      </ErrorBoundary>
-      {/* header
-      sidebar
-        -menu items
-      body
-        -button list
-        video container
-       */}
-    </Provider>
+        <ErrorBoundary>
+          <RouterProvider router={appRouter}></RouterProvider>
+        </ErrorBoundary>
+      </Provider>
+    </Suspense>
   );
 }
 

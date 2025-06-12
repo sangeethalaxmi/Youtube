@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "./Button";
 
 const ButtonList = () => {
@@ -11,14 +11,21 @@ const ButtonList = () => {
     "Live",
     "Cricket",
     "Sports",
-    "Fasion",
+    "Fashion",
     "Movies",
     "TED",
+    "Shorts",
+    "PodeCasts",
+    "TV",
+    "Serials",
+    "Comedies",
+    "PlayLists",
+    "Musics",
     // "PodeCasts",
     // "Sri Saidam",
   ];
   return (
-    <div className="flex">
+    <div className="flex flex-wrap text-textPrimary">
       {list.map((name) => (
         <Button name={name} key={name} />
       ))}

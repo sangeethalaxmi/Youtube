@@ -1,23 +1,33 @@
 import React from "react";
+import { formatUploadedDays, formatViewNumber } from "../utils/helper";
+import Icons from "./Icons";
 
 const VideoCard = ({ info }) => {
   const { statistics, snippet } = info;
-  const { channelTitle, title, thumbnails } = snippet;
+  const { channelTitle, title, thumbnails, publishedAt } = snippet;
   return (
     <div>
-      <div className="p-2 m-2 w-56 shadow-lg max-h-72 h-72">
+      <div className="p-2 m-2  shadow-lg ">
         <img
           className="rounded-lg"
           src={thumbnails?.medium?.url}
           alt="thumbnails"
         ></img>
         <ul>
-          <li className="font-bold w-full h-[94px] max-h-[100px] overflow-hidden line-clamp-3">
-            {" "}
-            {title}
+          <li className="font-bold w-full text-truncate "> {title}</li>
+          <li className="mt-1"> {channelTitle}</li>
+          <li className="flex items-center gap-2 text-textSecondary text-sm">
+            <span>{formatViewNumber(statistics.viewCount)} views</span>
+            <span>
+              <Icons
+                name="circle"
+                size={4}
+                className="bg-textSecondary text-textSecondary"
+                strokeWidth={2}
+              />
+            </span>
+            <span className=""> {formatUploadedDays(publishedAt)}</span>
           </li>
-          <li className="mt-2"> {channelTitle}</li>
-          <li>{statistics.likeCount} views</li>
         </ul>
       </div>
     </div>

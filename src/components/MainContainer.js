@@ -3,7 +3,7 @@ import VideoContainer from "./VideoContainer";
 
 const MainContainer = () => {
   return (
-    <div className="">
+    <div className="mt-28">
       <ButtonList />
       <VideoContainer />
     </div>

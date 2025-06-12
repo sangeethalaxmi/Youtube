@@ -1,3 +1,5 @@
+import { SCROLL_THRESHOLD } from "./constants";
+
 var nameList = [
   "Time",
   "Past",
@@ -189,3 +191,46 @@ export function generateRandomText(length) {
   }
   return result;
 }
+
+export const isPageBottom = () => {
+  const scrollPosition = window.innerHeight + window.scrollY;
+  const currentPosition = document.body.offsetHeight - SCROLL_THRESHOLD;
+  return scrollPosition >= currentPosition;
+};
+
+export const formatViewNumber = (number) => {
+  number = parseInt(number);
+  if (number >= 1_00_00_000) {
+    return (number / 1_00_00_000).toFixed(1).replace(/\.0$/, "") + " crore";
+  } else if (number >= 1_00_000) {
+    return (number / 1_00_000).toFixed(1).replace(/\.0$/, "") + " lakh";
+  } else if (number >= 1_000) {
+    return (number / 1_000).toFixed(1).replace(/\.0$/, "") + "k";
+  } else {
+    return number;
+  }
+};
+export const formatUploadedDays = (date) => {
+  const today = new Date();
+  const past = new Date(date);
+  const units = [
+    { name: "year", seconds: 31536000 },
+    { name: "month", seconds: 2592000 },
+    { name: "week", seconds: 604800 },
+    { name: "day", seconds: 86400 },
+    { name: "hour", seconds: 3600 },
+    { name: "minute", seconds: 60 },
+    { name: "second", seconds: 1 },
+  ];
+
+  const diffInSeconds = Math.floor((today - past) / 1000);
+  for (let unit of units) {
+    const value = Math.floor(diffInSeconds / unit.seconds);
+    if (value >= 1) {
+      return new Intl.RelativeTimeFormat("en", { numeric: "auto" }).format(
+        -value,
+        unit.name
+      );
+    }
+  }
+};
