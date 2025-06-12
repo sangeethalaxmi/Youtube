@@ -95,12 +95,13 @@ const Header = () => {
             />
           </a>
         </div>
-        <div className="col-span-10 text-center relative hidden sm:block flex w-full">
+        <div className="col-span-10 text-center relative hidden  sm:flex w-full">
           <input
             type="text"
             className="border border-gray-300 w-4/5  p-2 px-4 bg-primary text-textPrimary rounded-l-full focus:outline-none outline-offset-0 "
             value={searchQuery}
             onChange={handleSearchSuggestion}
+            placeholder="Search"
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 navigate("/results?search_query=" + searchQuery);
