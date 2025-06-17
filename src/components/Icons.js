@@ -9,6 +9,7 @@ import {
   Moon,
   Circle,
   Share,
+  ArrowLeft,
 } from "lucide-react";
 
 const Icons = ({
@@ -29,6 +30,7 @@ const Icons = ({
     light: Sun,
     circle: Circle,
     share: Share,
+    arrowLeft: ArrowLeft,
   };
   const Icon = icons[name];
   if (!Icon) return null;

@@ -1,7 +1,7 @@
 import React from "react";
 import { formatUploadedDays, formatViewNumber } from "../utils/helper";
 import Icons from "./Icons";
-import useFetchChannelLogo from "../utils/useFetchChannelLogo";
+import useFetchChannelLogo from "../utils/hooks/useFetchChannelLogo";
 
 const RelatedVideoCard = ({ info }) => {
   // console.log(info);

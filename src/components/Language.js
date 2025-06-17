@@ -8,8 +8,6 @@ const Language = React.memo(
   forwardRef((props, ref) => {
     const [isOpen, setIsOpen] = useState(false);
     const { t, i18n } = useTranslation();
-    console.log(i18n?.language);
-    console.log(LANGUAGES.find((lang) => lang.value === i18n?.language)?.label);
     const defaultLang =
       LANGUAGES.find((lang) => lang.value === i18n?.language)?.label ||
       DEFAULTLANG.label;
@@ -35,17 +33,15 @@ const Language = React.memo(
       },
     }));
     return (
-      <>
-        <Modal
-          isOpen={isOpen}
-          onClose={() => {
-            setIsOpen(false);
-          }}
-        >
-          <Modal.Header onClose={handleCloseModal}>
+      <Modal isOpen={isOpen} onClose={handleCloseModal}>
+        <Modal.Header>
+          <div className="border-b p-2">
             <h2 className="text-center">Language</h2>
-          </Modal.Header>
-          <Modal.Body>
+          </div>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="border-b p-2">
+            {" "}
             <AutoCompleteSingleSelect
               options={LANGUAGES}
               label="Select Language"
@@ -55,22 +51,22 @@ const Language = React.memo(
               defaultValue={defaultLang}
               DEFAULTSELECT={DEFAULTLANG}
             />
-          </Modal.Body>
-          <Modal.Footer>
-            <div>
-              {" "}
-              <div className="text-center">
-                <button
-                  className="bg-[#0b57d0] text-white px-4 py-2 rounded-md hover:bg-[#5f8edaf9] cursor-pointer disabled:bg-gray-300"
-                  onClick={handleLanguageChange}
-                >
-                  Submit
-                </button>
-              </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <div>
+            {" "}
+            <div className="text-center">
+              <button
+                className="bg-[#0b57d0] text-white px-4 py-2 rounded-md hover:bg-[#5f8edaf9] cursor-pointer disabled:bg-gray-300"
+                onClick={handleLanguageChange}
+              >
+                Submit
+              </button>
             </div>
-          </Modal.Footer>
-        </Modal>
-      </>
+          </div>
+        </Modal.Footer>
+      </Modal>
     );
   })
 );

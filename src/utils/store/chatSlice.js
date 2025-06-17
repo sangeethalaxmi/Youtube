@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { act } from "react";
 import { CHAT_LIMIT } from "../constants";
 
 const chatSlice = createSlice({

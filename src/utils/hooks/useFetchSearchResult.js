@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import { SEARCH_API, VIDEO_API } from "./constants";
-import { showError } from "./toast";
+import { SEARCH_API, VIDEO_API } from "../constants";
+import { showError } from "../toast";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "./store/appSlice";
-import { isPageBottom } from "./helper";
+import { setLoading } from "../store/appSlice";
+import { isPageBottom } from "../helper";
 export const getVideosDetail = async (videoParamIds) => {
   const videoResponse = await fetch(VIDEO_API + videoParamIds);
   const videoData = await videoResponse.json();

@@ -1,82 +1,72 @@
 import ReactDOM from "react-dom";
-import { useDispatch, useSelector } from "react-redux";
 import Icons from "./Icons";
-import { useEffect } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { SIZE_CLASSES } from "../utils/constants";
-
+import { FocusTrap } from "focus-trap-react";
+import { useModal, ModalContext } from "../contexts/ModalContext";
 const Modal = ({
   children,
   size = "sm",
   modalClass = "",
-
-  onSubmitHandler,
   isOpen = false,
   onClose,
 }) => {
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape") {
-        handleCloseModal();
+        onClose();
       }
     };
     document.addEventListener("keydown", handleEscape);
     return () => {
-      document.removeEventListener("keydown", handleEscape);
+      return document.removeEventListener("keydown", handleEscape);
     };
   }, []);
-  const handleCloseModal = () => {
-    onClose();
-  };
 
   if (!isOpen) return null;
   const mainRoot = document.getElementById("modal-root");
   return ReactDOM.createPortal(
-    <div
-      className="fixed inset-0 bg-black/50 dark:bg-white/80  z-[1000] flex justify-center items-center max-h-[100vh] overflow-auto "
-      role="dialog"
-      aria-modal="true"
-      onClick={handleCloseModal}
-    >
-      <div
-        className={`bg-primary rounded-md ${SIZE_CLASSES[size]} text-textPrimary ${modalClass}`}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {children}
-      </div>
-    </div>,
+    <ModalContext.Provider value={{ onClose }}>
+      <FocusTrap>
+        <div
+          className="fixed inset-0 bg-black/50 dark:bg-white/80  z-[1000] flex justify-center items-center max-h-[100vh] overflow-auto "
+          role="dialog"
+          aria-modal="true"
+          onMouseDown={onClose}
+        >
+          <div
+            className={`bg-primary rounded-lg ${SIZE_CLASSES[size]} text-textPrimary ${modalClass}`}
+            onMouseDown={(e) => e.stopPropagation()}
+          >
+            {children}
+          </div>
+        </div>
+      </FocusTrap>
+    </ModalContext.Provider>,
     mainRoot
   );
 };
 // compound component of modal
-Modal.Header = function modalHeader({
-  ShowCloseIcon = true,
-  children,
-  onClose,
-}) {
+Modal.Header = function ModalHeader({ ShowCloseIcon = true, children }) {
+  const { onClose } = useModal();
   return (
-    <div className="mt-1 p-2  border-b">
-      <span className="float-right block text-textSecondary">
-        {ShowCloseIcon && (
-          <Icons
-            name="close"
-            size={24}
-            onClick={onClose}
-            className="cursor-pointer"
-          />
-        )}
-      </span>
+    <div className="mt-1 p-2  ">
+      {ShowCloseIcon && (
+        <button
+          className="float-right block text-textSecondary"
+          onClick={onClose}
+        >
+          <Icons name="close" size={24} className="cursor-pointer" />
+        </button>
+      )}
       {children}
     </div>
   );
 };
-Modal.Body = function modalBody({ children }) {
-  return <div className="mt-1 p-2  border-b text-textPrimary">{children}</div>;
+Modal.Body = function ModalBody({ children }) {
+  return <div className="mt-1 p-2  text-textPrimary">{children}</div>;
 };
-Modal.Footer = function modalFooter({ children }) {
-  return (
-    <>
-      <div className="mt-1 p-2">{children}</div>
-    </>
-  );
+Modal.Footer = function ModalFooter({ children }) {
+  return <div className="mt-1 p-2 b-t">{children}</div>;
 };
 export default Modal;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CHANNEL_API } from "./constants";
+import { CHANNEL_API } from "../constants";
 
 const useFetchChannelInfo = (videoDetails) => {
   const [channelInfo, setChannelInfo] = useState([]);

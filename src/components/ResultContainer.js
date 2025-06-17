@@ -1,5 +1,5 @@
 import { Link, useSearchParams } from "react-router-dom";
-import useFetchSearchResult from "../utils/useFetchSearchResult";
+import useFetchSearchResult from "../utils/hooks/useFetchSearchResult";
 import VideoCard from "./VideoCard";
 import Shimmer from "./Shimmer";
 

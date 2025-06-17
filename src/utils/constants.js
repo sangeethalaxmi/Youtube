@@ -5,7 +5,7 @@ export const YOUTUBE_API =
 export const VIDEO_URL = "https://www.youtube.com/embed/";
 
 export const SUGGESION_API =
-  "http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=";
+  "https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=";
 
 export const CHAT_LIMIT = 10;
 export const SEARCH_API =
@@ -41,9 +41,11 @@ export const LANGUAGES = [
 ];
 
 export const SIZE_CLASSES = {
-  sm: "w-[300px] md:w-[400px]",
-  md: "w-[500px] md:w-[600px]",
+  sm: "w-[200px] md:w-[300px]",
+  md: "w-[400px] md:w-[500px]",
   lg: "w-[700px] md:w-[800px]",
 };
 
 export const DEFAULTLANG = { label: "English", value: "en" };
+
+export const YOUTUBE_WATCH_URL = "https://www.youtube.com/watch?v=";

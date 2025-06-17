@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utils/store/appSlice";
 import { SUGGESION_API } from "../utils/constants";
@@ -6,7 +6,6 @@ import { cacheSuggestions } from "../utils/store/searchSlice";
 import { useNavigate } from "react-router-dom";
 import Icons from "./Icons";
 import api from "../utils/api";
-import DropDown from "./DropDown";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
 import Language from "./Language";
 
@@ -18,21 +17,26 @@ const Header = () => {
   const cacheResult = useSelector((state) => state.search);
   const [theme, setTheme] = useState();
   const modalRef = useRef();
-  // console.log(cacheResult);
+  const [isMobileSearch, setIsMobileSearch] = useState(false);
   const handleToggleMenu = () => {
     dispatch(toggleMenu());
   };
   const navigate = useNavigate();
-  const getSuggestion = async (value) => {
-    api
-      .get(SUGGESION_API + value)
-      .then((response) => {
-        const data = response.data;
-        setSearchSuggestion(data[1]);
-        dispatch(cacheSuggestions({ [searchQuery]: data[1] }));
-      })
-      .catch((e) => {});
-  };
+  const getSuggestion = useCallback(
+    async (value) => {
+      if (value) {
+        api
+          .get(SUGGESION_API + value)
+          .then((response) => {
+            const data = response.data;
+            setSearchSuggestion(data[1]);
+            dispatch(cacheSuggestions({ [searchQuery]: data[1] }));
+          })
+          .catch((e) => {});
+      }
+    },
+    [setSearchSuggestion, dispatch, searchQuery]
+  );
 
   const handleSearchSuggestion = (e) => {
     setSearchQuery(e.target.value);
@@ -45,7 +49,6 @@ const Header = () => {
     document.body.classList.toggle("dark");
   };
   useEffect(() => {
-    // handleSearch(searchQuery);
     const timer = setTimeout(() => {
       // implement cache to avoid api call if search result already present in store
       if (cacheResult[searchQuery]) {
@@ -57,7 +60,7 @@ const Header = () => {
     return () => {
       clearTimeout(timer);
     };
-  }, [searchQuery]);
+  }, [searchQuery, setSearchSuggestion, getSuggestion, cacheResult]);
   useEffect(() => {
     const theme = localStorage.getItem("theme");
     let newTheme;
@@ -72,15 +75,29 @@ const Header = () => {
     setTheme(newTheme);
     document.body.classList.toggle("dark");
   }, []);
+  // handle resize
+  useEffect(() => {
+    const handleReSize = () => {
+      if (window.innerWidth > 640) {
+        setIsMobileSearch(false);
+      }
+    };
+    handleReSize();
+    window.addEventListener("resize", handleReSize);
+    return () => {
+      window.removeEventListener("resize", handleReSize);
+    };
+  }, []);
   const handleModalOpen = () => {
-    console.log(modalRef.current);
     modalRef.current?.open();
   };
 
   return (
     <div className="w-screen fixed bg-primary text-textPrimary z-100 flex">
       <div className="grid grid-flow-col p-5  shadow-lg items-center w-full">
-        <div className="flex h-8 col-span-1">
+        <div
+          className={` h-8 col-span-1 ${isMobileSearch ? "hidden" : "flex"}`}
+        >
           <Icons
             name="menu"
             className="cursor-pointer"
@@ -95,7 +112,33 @@ const Header = () => {
             />
           </a>
         </div>
-        <div className="col-span-10 text-center relative hidden  sm:flex w-full">
+        {/* button for small screen */}
+        <div className="sm:hidden">
+          {!isMobileSearch ? (
+            <button
+              onClick={() => {
+                setIsMobileSearch(true);
+              }}
+            >
+              {" "}
+              <Icons name="search" />
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                setIsMobileSearch(false);
+              }}
+            >
+              {" "}
+              <Icons name="arrowLeft" />
+            </button>
+          )}
+        </div>
+        <div
+          className={`col-span-10 text-center relative  sm:flex w-full ${
+            isMobileSearch ? "flex" : "hidden"
+          }`}
+        >
           <input
             type="text"
             className="border border-gray-300 w-4/5  p-2 px-4 bg-primary text-textPrimary rounded-l-full focus:outline-none outline-offset-0 "
@@ -116,15 +159,17 @@ const Header = () => {
             }}
           />
           {searchQuery && (
-            <span
-              className="absolute left-[75%] lg:left-[83%] top-[20%]  text-textPrimary text-gray-400 cursor-pointer hover:btn-hover h-[25px] w-[25px] rounded-[50%]"
+            <button
+              className="absolute left-[75%]  top-[20%]  text-textPrimary text-gray-400 cursor-pointer hover:btn-hover h-[25px] w-[25px] rounded-[50%]"
               onClick={() => setSearchQuery("")}
             >
               <Icons name="close" size={24} />
-            </span>
+            </button>
           )}
           <button
-            className="p-2  border  border-gray-200 rounded-r-full bg-secondary hover:btn-hover w-[8%]"
+            className={`p-2  border  border-gray-200 rounded-r-full bg-secondary hover:btn-hover ${
+              isMobileSearch ? "w-[15%]" : "w-[8%]"
+            }`}
             onClick={() => {
               navigate("/results?search_query=" + searchQuery);
             }}
@@ -137,12 +182,14 @@ const Header = () => {
             />
           </button>
           {showSuggestion && searchSuggestion.length > 0 && (
-            <div className="border border-gray-100 absolute w-4/5 z-50 bg-primary rounded-xl shadow-2xl left-[7%] ">
+            <div className="border border-gray-100 absolute top-full w-[88%] z-50 bg-primary rounded-xl shadow-2xl left-[0%] ">
               <ul className=" text-left">
                 {searchSuggestion.map((suggestion) => (
                   // <Link to={"/results?search_query=" + suggestion}>
                   <li
+                    role="button"
                     key={suggestion}
+                    tabIndex={0}
                     className="p-2 py-2 cursor-pointer hover:bg-secondary hover:rounded-lg m-1 flex"
                     onMouseDown={() => {
                       setSearchQuery(suggestion);
@@ -161,7 +208,7 @@ const Header = () => {
             </div>
           )}
         </div>
-        <button className="p-1 ">
+        <button className={`p-1 ${isMobileSearch ? "hidden" : "block"}`}>
           <Icons
             name={theme === "dark" ? "light" : "dark"}
             size={40}
@@ -169,7 +216,7 @@ const Header = () => {
             onClick={handleThemeSetting}
           />
         </button>
-        <div className="col-span-1">
+        <div className={`col-span-1 ${isMobileSearch ? "hidden" : "block"}`}>
           <Language ref={modalRef} />
           <Popover className="relative">
             <PopoverButton>
@@ -184,12 +231,6 @@ const Header = () => {
                 className="cursor-pointer p-2 hover:bg-primary hover:rounded-md"
               >
                 Language
-              </button>
-              <button
-                onClick={() => {}}
-                className="cursor-pointer p-2 hover:bg-primary hover:rounded-md"
-              >
-                Settings
               </button>
             </PopoverPanel>
           </Popover>

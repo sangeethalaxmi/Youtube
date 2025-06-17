@@ -6,12 +6,9 @@ import { closeMenu } from "../utils/store/appSlice";
 import CommentsContainer from "./CommentsContainer";
 import LiveChat from "./LiveChat";
 import RelatedVideos from "./RelatedVideos";
-import { getVideosDetail } from "../utils/useFetchSearchResult";
+import { getVideosDetail } from "../utils/hooks/useFetchSearchResult";
 import Shimmer from "./Shimmer";
-import Avatar from "./Avatar";
-import useFetchChannelInfo from "../utils/useFetchChannelLogo";
-import { formatViewNumber } from "../utils/helper";
-import Icons from "./Icons";
+import VideoDetailContainer from "./VideoDetailContainer";
 
 const WatchPage = () => {
   const [searchParams] = useSearchParams();
@@ -30,9 +27,6 @@ const WatchPage = () => {
   useEffect(() => {
     dispatch(closeMenu());
   }, []);
-  // console.log(videoDetails);
-  const snippet = videoDetails?.snippet ?? {};
-  const channelInfo = useFetchChannelInfo(snippet);
 
   if (!videoDetails) {
     return <Shimmer />;
@@ -50,36 +44,13 @@ const WatchPage = () => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
-          <div className="mt-2 ">
-            <h2 className="text-lg font-bold ">
-              {videoDetails?.snippet?.title}
-            </h2>
-            <div className="flex items-center">
-              <div className="w-[7%]">
-                <Avatar
-                  img={channelInfo?.snippet?.thumbnails?.default?.url}
-                  alt="channel logo"
-                />
-              </div>
-              <div className="w-[30%]">
-                <h3 className="text-lg font-bold line-clamp-1">
-                  {videoDetails?.snippet?.channelTitle}
-                </h3>
-                <h2>
-                  {formatViewNumber(channelInfo?.statistics?.subscriberCount)}{" "}
-                  subscribers
-                </h2>
-              </div>
-              <button className="flex gap-2 bg-secondary rounded-l-full rounded-r-full px-3 py-1 items-center cursor-pointer">
-                <span className="font-bold">Share</span>
-                <span>
-                  <Icons name="share" />
-                </span>
-              </button>
-            </div>
-          </div>
+          <VideoDetailContainer videoInfo={videoDetails} />
         </div>
-        <div className="w-full">
+        <div className="w-full border border-gray-300 rounded-lg bg-tertiary">
+          <div className="p-2 border border-b-gray-300 rounded-t-lg">
+            {" "}
+            <h2>Live Chat</h2>
+          </div>
           <LiveChat />
         </div>
       </div>

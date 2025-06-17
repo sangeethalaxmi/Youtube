@@ -12,7 +12,6 @@ const VideoContainer = () => {
   const [videos, setVideos] = useState([]);
   const isLoading = useSelector((state) => state.app.isLoading);
   const dispatch = useDispatch();
-  // const [isLoading, setLoading] = useState(false);
   const [nextPageToken, setNextPageToken] = useState("");
   //implement infinite scroll for popular video
   const getPopularVideo = useCallback(async () => {
@@ -38,13 +37,13 @@ const VideoContainer = () => {
       dispatch(setLoading(false));
     }
   }, [nextPageToken, dispatch]);
+
   useEffect(() => {
     getPopularVideo();
   }, []);
   useEffect(() => {
     const handleScroll = () => {
       if (isPageBottom() && !isLoading && nextPageToken) {
-        // throutting in react
         getPopularVideo();
       }
     };
