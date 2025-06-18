@@ -1,70 +1,79 @@
-# Getting Started with Create React App
+# 🎬 YouTube Clone - React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A YouTube clone built using **React**, **Tailwind CSS**, and **i18next**, simulating video browsing, playback, dark mode, and more. Designed to demonstrate real-world frontend development skills and modern React practices.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Features
 
-### `npm start`
+- ✅ Responsive Video Dashboard
+- ✅ Video Watch Page with Related Videos
+- ✅ Embedded YouTube Video Player (`iframe`)
+- ✅ Dark Mode Toggle
+- ✅ Live Chat UI (Mocked)
+- ✅ Comments Section UI (Mocked)
+- ✅ Internationalization (i18n) using `react-i18next`
+- ✅ Routing using React Router
+- ✅ Utility-first styling with Tailwind CSS
+- ✅ Scroll to Top on Route Change
+- ✅ Error Boundary Setup
+- ✅ Notification using `react-toastify`
+- ✅ State management using `react-redux`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🌍 In Progress
 
-### `npm test`
+- 🌐 Language switching with dynamic namespace loading
+- 🔔 Notifications (Mock)
+- 🎭 Theater Mode Feature
+- 📌 Trending Tags & Clickable Hashtags
+- 🎨 Accessibility and SEO optimization
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🛠️ Tech Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+| Category       | Technology                      |
+| -------------- | ------------------------------- |
+| Frontend       | React 1, JSX, Tailwind CSS      |
+| Routing        | React Router DOM                |
+| State Handling | useState, useEffect, useContext |
+| Styling        | Tailwind CSS                    |
+| i18n           | react-i18next                   |
+| Video Player   | YouTube `iframe` Embed          |
+| Deployment     | Netlify / Vercel                |
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 📸 Screenshots
 
-### `npm run eject`
+> _(Add your own screenshots below)_
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+![Dashboard](screenshots/dashboard.png)
+![Watch Page](screenshots/watch-page.png)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🔗 Live Demo
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+[👉 Click here to try it out](https://veeplay.netlify.app/)
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 📦 Getting Started (Local Setup)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+# 1. Clone the repository
+git clone https://github.com/sangeethalaxmi/Youtube.git
 
-### Code Splitting
+# 2. Navigate to the project directory
+cd youtube
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+# 3. Install dependencies
+npm install
+# 4. create .env file and add REACT_APP_YOUTUBE_API_KEY = XXX - check https://developers.google.com/workspace/guides/create-credentials to create project and get youtube api key
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# 5. Start the development server
+npm start
+```

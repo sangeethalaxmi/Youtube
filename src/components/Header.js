@@ -26,7 +26,7 @@ const Header = () => {
     async (value) => {
       if (value) {
         api
-          .get("/api/suggest?q=" + value)
+          .get("/.netlify/functions/youtube-suggest?q=" + value)
           .then((response) => {
             const data = response.data;
             setSearchSuggestion(data[1]);

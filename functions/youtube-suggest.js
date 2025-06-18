@@ -2,7 +2,6 @@ const fetch = require("node-fetch");
 
 exports.handler = async (event) => {
   const query = event.queryStringParameters.q; // Get query param like q=ds
-
   if (!query) {
     return {
       statusCode: 400,
