@@ -1,7 +1,7 @@
 import { forwardRef, useImperativeHandle, useState } from "react";
 import Modal from "./Modal";
 import { YOUTUBE_WATCH_URL } from "../utils/constants";
-import { showError, showMessageInfo, showSuccess } from "../utils/toast";
+import { showError, showMessageInfo } from "../utils/toast";
 import ShareButtons from "./ShareButtons";
 
 const Share = forwardRef((props, ref) => {

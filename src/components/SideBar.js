@@ -8,7 +8,6 @@ const SideBar = () => {
   const isOpen = useSelector((state) => state.app.isMenuOpen);
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  console.log("test");
   return (
     <>
       {isOpen && (

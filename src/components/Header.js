@@ -26,7 +26,7 @@ const Header = () => {
     async (value) => {
       if (value) {
         api
-          .get(SUGGESION_API + value)
+          .get("/api/suggest?q=" + value)
           .then((response) => {
             const data = response.data;
             setSearchSuggestion(data[1]);

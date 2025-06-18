@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import Icons from "./Icons";
-import { createContext, useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { SIZE_CLASSES } from "../utils/constants";
 import { FocusTrap } from "focus-trap-react";
 import { useModal, ModalContext } from "../contexts/ModalContext";
