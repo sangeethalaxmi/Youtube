@@ -36,18 +36,15 @@ const SideBar = () => {
         <h1 className="font-bold mt-5">{t("Subscriptions")}</h1>
         <ul>
           <li>{t("Music")}</li>
-          <li>Sports</li>
-          <li>gaming</li>
-          <li>Movies</li>
+          <li>{t("Sports")}</li>
+          <li>{t("gaming")}</li>
+          <li>{t("movie")}</li>
         </ul>
         <div className="border  border-textSecondary  divide-x-2 my-2"></div>
 
-        <h1 className="font-bold mt-5">Watch Later</h1>
+        <h1 className="font-bold mt-5">{t("watch_later")}</h1>
         <ul>
-          <li>Music</li>
-          <li>Sports</li>
-          <li>gaming</li>
-          <li>Movies</li>
+          <li>{t("downloads")}</li>
         </ul>
       </div>
     </>

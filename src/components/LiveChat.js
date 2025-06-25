@@ -11,12 +11,6 @@ const LiveChat = () => {
   const [chatInput, setChatInput] = useState("");
   // pooling
   useEffect(() => {
-    dispatch(
-      addMessage({
-        name: generateRandomName(),
-        message: generateRandomText(20),
-      })
-    );
     // api pooling calling api every 1000 seconds to generate live chat
     const timer = setInterval(() => {
       dispatch(

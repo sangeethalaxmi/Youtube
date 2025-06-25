@@ -7,51 +7,13 @@ import { showError } from "../utils/toast";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../utils/store/appSlice";
 import { isPageBottom } from "../utils/helper";
+import api from "../utils/api";
+import useFetchPopularVideos from "../hooks/useFetchPopularVideos";
 
 const VideoContainer = () => {
-  const [videos, setVideos] = useState([]);
-  const isLoading = useSelector((state) => state.app.isLoading);
-  const dispatch = useDispatch();
-  const [nextPageToken, setNextPageToken] = useState("");
-  //implement infinite scroll for popular video
-  const getPopularVideo = useCallback(async () => {
-    try {
-      dispatch(setLoading(true));
-      let url = "";
-      if (nextPageToken) {
-        url = YOUTUBE_API + "&pageToken=" + nextPageToken;
-      } else {
-        url = YOUTUBE_API;
-      }
-      const response = await fetch(url);
-      const data = await response.json();
-      setVideos((prev) => [...prev, ...data.items]);
-      if (data?.nextPageToken) {
-        setNextPageToken(data?.nextPageToken);
-      } else {
-        setNextPageToken("");
-      }
-    } catch (error) {
-      showError(error.message);
-    } finally {
-      dispatch(setLoading(false));
-    }
-  }, [nextPageToken, dispatch]);
-
-  useEffect(() => {
-    getPopularVideo();
-  }, []);
-  useEffect(() => {
-    const handleScroll = () => {
-      if (isPageBottom() && !isLoading && nextPageToken) {
-        getPopularVideo();
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [isLoading, nextPageToken, getPopularVideo]);
+  // const [videos, setVideos] = useState([]);
+  // const isLoading = useSelector((state) => state.app.isLoading);
+  const videos = useFetchPopularVideos();
   if (videos.length === 0) {
     return <Shimmer />;
   }

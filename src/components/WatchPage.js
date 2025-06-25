@@ -6,7 +6,7 @@ import { closeMenu } from "../utils/store/appSlice";
 import CommentsContainer from "./CommentsContainer";
 import LiveChat from "./LiveChat";
 import RelatedVideos from "./RelatedVideos";
-import { getVideosDetail } from "../utils/hooks/useFetchSearchResult";
+import { getVideosDetail } from "../hooks/useFetchSearchResult";
 import Shimmer from "./Shimmer";
 import VideoDetailContainer from "./VideoDetailContainer";
 
@@ -14,20 +14,17 @@ const WatchPage = () => {
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const videoId = searchParams.get("v");
-
   const [videoDetails, setVideoDetails] = useState([]);
-
   useEffect(() => {
     const getVideoInfo = async () => {
       const videoData = await getVideosDetail(videoId);
       setVideoDetails(videoData[0]);
     };
     getVideoInfo();
-  }, []);
+  }, [videoId]);
   useEffect(() => {
     dispatch(closeMenu());
   }, []);
-
   if (!videoDetails) {
     return <Shimmer />;
   }
@@ -57,7 +54,7 @@ const WatchPage = () => {
 
       <div className="grid customScreen:grid-cols-[55%_45%] grid-cols-1 w-full">
         <CommentsContainer />
-        <RelatedVideos relatedTitle={videoDetails[0]?.snippet?.title} />
+        <RelatedVideos relatedTitle={videoDetails?.snippet?.title} />
       </div>
     </div>
   );

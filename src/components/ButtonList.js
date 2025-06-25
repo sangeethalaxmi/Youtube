@@ -11,7 +11,6 @@ const ButtonList = () => {
     "Cricket",
     "Sports",
     "Fashion",
-    "Movies",
     "TED",
     "Shorts",
     "PodeCasts",

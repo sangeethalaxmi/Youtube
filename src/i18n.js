@@ -11,15 +11,15 @@ i18n
   .use(initReactI18next)
   .init({
     fallbackLng: DEFAULTLANG.value,
-    debug: true,
+    debug: false,
     load: "languageOnly",
     interpolation: {
       escapeValue: false, // React already escapes
     },
-    ns: ["common"], // namespace
-    defaultNS: "common", // default namespace
+    ns: ["translation"], // namespace
+    defaultNS: "translation", // default namespace
     backend: {
-      loadPath: "/locales/{{lng}}/{{ns}}.json", // translation files
+      loadPath: "/locales/i18n/{{lng}}/{{ns}}.json", // translation files
     },
   });
 

@@ -1,14 +1,12 @@
 import React from "react";
 import { formatUploadedDays, formatViewNumber } from "../utils/helper";
 import Icons from "./Icons";
-import useFetchChannelLogo from "../utils/hooks/useFetchChannelLogo";
 
 const RelatedVideoCard = ({ info }) => {
-  // console.log(info);
   const { statistics, snippet } = info;
   const { viewCount } = statistics;
   const { thumbnails, title, channelTitle, publishedAt } = snippet;
-  const channelImg = useFetchChannelLogo(snippet);
+  // const channelImg = useFetchChannelInfo(snippet);
 
   return (
     <div className="flex p-2 shadow-lg mb-2 flex-col mobile:flex-row mobile: gap-4 bg-primary">

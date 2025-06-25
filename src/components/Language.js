@@ -3,6 +3,7 @@ import Modal from "./Modal";
 import { DEFAULTLANG, LANGUAGES } from "../utils/constants";
 import React, { forwardRef, useImperativeHandle, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { showError, showMessageInfo } from "../utils/toast";
 
 const Language = React.memo(
   forwardRef((props, ref) => {
@@ -15,8 +16,13 @@ const Language = React.memo(
 
     const handleLanguageChange = () => {
       if (!language) return;
-      i18n.changeLanguage(language);
-      setIsOpen(false);
+      try {
+        i18n.changeLanguage(language);
+        showMessageInfo("Language updated Successfully!");
+        setIsOpen(false);
+      } catch (e) {
+        showError("Language change failed:", e);
+      }
     };
     const handleChange = (value) => {
       setLanguage(value);

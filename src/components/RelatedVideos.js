@@ -1,19 +1,29 @@
+import React from "react";
 import RelatedVideoCard from "./RelatedVideoCard";
-import useFetchSearchResult from "../utils/hooks/useFetchSearchResult";
 import Shimmer from "./Shimmer";
+import useFetchSearchResult from "../hooks/useFetchSearchResult";
+import { Link } from "react-router-dom";
 
-const RelatedVideos = ({ relatedTitle }) => {
+const RelatedVideos = React.memo(({ relatedTitle }) => {
   const videosList = useFetchSearchResult(relatedTitle) ?? [];
   if (videosList.length === 0) {
-    return <Shimmer />;
+    return (
+      <div className="mt-4 w-full rounded-lg p-2 text-center">
+        <p className="text-textPrimary">No related videos found.</p>
+      </div>
+    );
   }
+
   return (
-    <div className=" mt-4  w-full rounded-lg p-2  ">
+    <div className="mt-4 w-full rounded-lg p-2">
       {videosList.map((video) => (
-        <RelatedVideoCard key={video.id} info={video} />
+        <Link to={"/watch?v=" + video.id} key={video.id}>
+          {" "}
+          <RelatedVideoCard info={video} />
+        </Link>
       ))}
     </div>
   );
-};
+});
 
 export default RelatedVideos;

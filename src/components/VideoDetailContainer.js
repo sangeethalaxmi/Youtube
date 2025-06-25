@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import useFetchChannelInfo from "../utils/hooks/useFetchChannelLogo";
+import useFetchChannelInfo from "../hooks/useFetchChannelInfo";
 import Avatar from "./Avatar";
 import { formatViewNumber } from "../utils/helper";
 import Icons from "./Icons";
@@ -7,10 +7,9 @@ import Share from "./Share";
 
 const VideoDetailContainer = ({ videoInfo }) => {
   const snippet = videoInfo?.snippet ?? {};
-  const channelInfo = useFetchChannelInfo(snippet);
+  const channelInfo = useFetchChannelInfo(snippet?.channelId || 0);
   const modalRef = useRef();
   const handleShare = () => {
-    console.log(modalRef?.current);
     modalRef.current?.open();
   };
   return (

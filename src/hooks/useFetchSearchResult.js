@@ -1,12 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
-import { SEARCH_API, VIDEO_API } from "../constants";
-import { showError } from "../toast";
+import { SEARCH_API, VIDEO_API } from "../utils/constants";
+import { showError } from "../utils/toast";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "../store/appSlice";
-import { isPageBottom } from "../helper";
+import { setLoading } from "../utils/store/appSlice";
+import { isPageBottom } from "../utils/helper";
+import api from "../utils/api";
 export const getVideosDetail = async (videoParamIds) => {
-  const videoResponse = await fetch(VIDEO_API + videoParamIds);
-  const videoData = await videoResponse.json();
+  const videoResponse = await api.get(VIDEO_API + videoParamIds);
+
+  const videoData = videoResponse.data;
+
   return videoData?.items ?? [];
 };
 const useFetchSearchResult = (searchParam) => {
@@ -23,8 +26,8 @@ const useFetchSearchResult = (searchParam) => {
       if (nextPageToken) {
         url += "&pageToken=" + nextPageToken;
       }
-      const response = await fetch(url);
-      const data = await response.json();
+      const response = await api.get(url);
+      const data = response.data;
       let uniqueVideoIds = data?.items.reduce((videoList, result) => {
         if (historyVideoIds.includes(result.id?.videoId)) return [];
         videoList.push(result.id?.videoId);
@@ -44,7 +47,6 @@ const useFetchSearchResult = (searchParam) => {
       }
       try {
         let videoData = await getVideosDetail(videoParamIds);
-        // console.log(videoData);
 
         setVideosList((prev) => [...prev, ...videoData]);
       } catch (e) {
@@ -57,13 +59,15 @@ const useFetchSearchResult = (searchParam) => {
     }
   }, [searchParam, dispatch, nextPageToken]);
   useEffect(() => {
-    setVideosList([]);
-    getSearchResult();
+    if (searchParam) {
+      // setVideosList([]);
+      getSearchResult();
+    }
   }, [searchParam]);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (isPageBottom() && !isLoading && nextPageToken) {
+      if (isPageBottom() && !isLoading && nextPageToken && searchParam) {
         getSearchResult(searchParam);
       }
     };
