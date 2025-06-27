@@ -54,15 +54,17 @@ const Search = ({ isMobileSearch, handleMobileSearch }) => {
             onClick={() => {
               handleMobileSearch(true);
             }}
+            aria-label="Search"
           >
             {" "}
-            <Icons name="search" />
+            <Icons name="search" aria-label="search icon" />
           </button>
         ) : (
           <button
             onClick={() => {
               handleMobileSearch(false);
             }}
+            aria-label="close mobile search"
           >
             {" "}
             <Icons name="arrowLeft" />
@@ -78,6 +80,7 @@ const Search = ({ isMobileSearch, handleMobileSearch }) => {
           type="text"
           className="border border-gray-300 w-4/5  p-2 px-4 bg-primary text-textPrimary rounded-l-full focus:outline-none outline-offset-0 "
           value={searchQuery}
+          aria-label="search input box"
           onChange={handleSearchSuggestion}
           placeholder="Search"
           onKeyDown={(e) => {
@@ -97,8 +100,9 @@ const Search = ({ isMobileSearch, handleMobileSearch }) => {
           <button
             className="absolute left-[75%]  top-[20%]  text-textPrimary text-gray-400 cursor-pointer hover:btn-hover h-[25px] w-[25px] rounded-[50%]"
             onClick={() => setSearchQuery("")}
+            aria-label="clear search"
           >
-            <Icons name="close" size={24} />
+            <Icons name="close" size={24} aria-label="clear icon" />
           </button>
         )}
         <button
@@ -106,25 +110,29 @@ const Search = ({ isMobileSearch, handleMobileSearch }) => {
             isMobileSearch ? "w-[15%]" : "w-[8%]"
           }`}
           onClick={() => {
-            navigate("/results?search_query=" + searchQuery);
+            if (searchQuery) {
+              navigate("/results?search_query=" + searchQuery);
+            }
           }}
+          aria-label="Search button"
         >
           <Icons
             name="search"
             size={22}
             strokeWidth="2"
             className="my-0 mx-auto"
+            aria-label="search icon"
           />
         </button>
         {showSuggestion && searchSuggestion.length > 0 && (
           <div className="border border-gray-100 absolute top-full w-[88%] z-50 bg-primary rounded-xl shadow-2xl left-[0%] ">
-            <ul className=" text-left">
-              {searchSuggestion.map((suggestion) => (
+            <ul className=" text-left" aria-label="search list">
+              {searchSuggestion.map((suggestion, index) => (
                 // <Link to={"/results?search_query=" + suggestion}>
                 <li
-                  role="button"
+                  role="option"
                   key={suggestion}
-                  tabIndex={0}
+                  tabIndex={index}
                   className="p-2 py-2 cursor-pointer hover:bg-secondary hover:rounded-lg m-1 flex"
                   onMouseDown={() => {
                     setSearchQuery(suggestion);
@@ -133,7 +141,12 @@ const Search = ({ isMobileSearch, handleMobileSearch }) => {
                 >
                   <span className="ml-2 p-2">
                     {" "}
-                    <Icons name="search" size={22} strokeWidth="2" />
+                    <Icons
+                      name="search"
+                      size={22}
+                      strokeWidth="2"
+                      aria-label="search icon"
+                    />
                   </span>
                   <span>{suggestion}</span>
                 </li>

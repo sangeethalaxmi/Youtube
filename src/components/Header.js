@@ -55,6 +55,7 @@ const Header = () => {
   };
 
   const handleMobileSearch = (value) => {
+    if (!value) return false;
     setIsMobileSearch(value);
   };
   return (
@@ -68,6 +69,7 @@ const Header = () => {
             className="cursor-pointer"
             onClick={handleToggleMenu}
             size={24}
+            aria-label="hamburger menu"
           />
           <a href="/">
             <img
@@ -82,10 +84,14 @@ const Header = () => {
           isMobileSearch={isMobileSearch}
           handleMobileSearch={handleMobileSearch}
         ></Search>
-        <button className={`p-1 ${isMobileSearch ? "hidden" : "block"}`}>
+        <button
+          className={`p-1 ${isMobileSearch ? "hidden" : "block"}`}
+          aria-label="theme"
+        >
           <Icons
             name={theme === "dark" ? "light" : "dark"}
             size={40}
+            aria-label="theme icon"
             className="text-textPrimary bg-secondary p-2 rounded-md"
             onClick={handleThemeSetting}
           />
@@ -94,7 +100,7 @@ const Header = () => {
           <Language ref={modalRef} />
           <Popover className="relative">
             <PopoverButton>
-              <Icons name="userAvatar" size={40} />
+              <Icons name="userAvatar" size={40} aria-label="User Profile" />
             </PopoverButton>
             <PopoverPanel
               anchor="bottom"

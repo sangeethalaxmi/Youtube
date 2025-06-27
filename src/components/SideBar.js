@@ -9,7 +9,7 @@ const SideBar = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   return (
-    <>
+    <nav>
       {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300"
@@ -47,7 +47,7 @@ const SideBar = () => {
           <li>{t("downloads")}</li>
         </ul>
       </div>
-    </>
+    </nav>
   );
 };
 

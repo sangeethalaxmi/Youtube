@@ -1,6 +1,6 @@
 import { SCROLL_THRESHOLD } from "./constants";
 
-var nameList = [
+const nameList = [
   "Time",
   "Past",
   "Future",
@@ -177,20 +177,20 @@ var nameList = [
   "Paradox",
 ];
 
-export function generateRandomName() {
+export const generateRandomName = () => {
   return nameList[Math.floor(Math.random() * nameList.length)];
-}
+};
 
-export function generateRandomText(length) {
-  var result = "";
-  var characters =
+export const generateRandomText = (length) => {
+  let result = "";
+  const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  var charactersLength = characters.length;
-  for (var i = 0; i < length; i++) {
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   return result;
-}
+};
 
 export const isPageBottom = () => {
   const scrollPosition = window.innerHeight + window.scrollY;

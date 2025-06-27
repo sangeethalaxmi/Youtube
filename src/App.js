@@ -12,34 +12,11 @@ import Shimmer from "./components/Shimmer";
 import ErrorHandler from "./components/ErrorHandler";
 import Loader from "./components/Loader";
 import "./i18n";
+import Signup from "./components/Signup";
+import appRouter from "./utils/routes";
 function App() {
   // lazy loading
-  const ResultContainer = lazy(() => import("./components/ResultContainer"));
-  const appRouter = createBrowserRouter([
-    {
-      path: "/",
-      element: <Body />,
-      errorElement: <RouterError />,
-      children: [
-        {
-          path: "/",
-          element: <MainContainer />,
-        },
-        {
-          path: "/watch",
-          element: <WatchPage />,
-        },
-        {
-          path: "results",
-          element: (
-            <Suspense fallback={<Shimmer />}>
-              <ResultContainer />
-            </Suspense>
-          ),
-        },
-      ],
-    },
-  ]);
+  const appRouterData = appRouter;
   return (
     <Suspense fallback={<Shimmer />}>
       <Provider store={appStore}>
@@ -47,7 +24,7 @@ function App() {
         <Loader />
 
         <ErrorBoundary>
-          <RouterProvider router={appRouter}></RouterProvider>
+          <RouterProvider router={appRouterData}></RouterProvider>
         </ErrorBoundary>
       </Provider>
     </Suspense>

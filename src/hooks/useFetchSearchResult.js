@@ -57,7 +57,7 @@ const useFetchSearchResult = (searchParam) => {
     } finally {
       dispatch(setLoading(false));
     }
-  }, [searchParam, dispatch, nextPageToken]);
+  }, [searchParam, dispatch, nextPageToken, historyVideoIds]);
   useEffect(() => {
     if (searchParam) {
       // setVideosList([]);

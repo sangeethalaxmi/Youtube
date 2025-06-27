@@ -70,6 +70,7 @@ const AutoCompleteSingleSelect = ({
               ? filteredList.map((list) => {
                   return (
                     <li
+                      role="option"
                       onClick={() => {
                         handleSelect(list.value, list.label);
                       }}
