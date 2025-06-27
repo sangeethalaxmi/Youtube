@@ -32,6 +32,8 @@ const Modal = ({
           className="fixed inset-0 bg-black/50 dark:bg-white/80  z-[1000] flex justify-center items-center max-h-[100vh] overflow-auto "
           role="dialog"
           aria-modal="true"
+          aria-labelledby="modal-title"
+          aria-describedby="modal-desc"
           onMouseDown={onClose}
         >
           <div
@@ -54,6 +56,7 @@ Modal.Header = function ModalHeader({ ShowCloseIcon = true, children }) {
       {ShowCloseIcon && (
         <button
           className="float-right block text-textSecondary"
+          aria-label="close"
           onClick={onClose}
         >
           <Icons name="close" size={24} className="cursor-pointer" />

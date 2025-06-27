@@ -64,13 +64,17 @@ const Header = () => {
         <div
           className={` h-8 col-span-1 ${isMobileSearch ? "hidden" : "flex"}`}
         >
-          <Icons
-            name="menu"
-            className="cursor-pointer"
-            onClick={handleToggleMenu}
-            size={24}
-            aria-label="hamburger menu"
-          />
+          <span aria-label="hamburger menu">
+            {" "}
+            <Icons
+              name="menu"
+              className="cursor-pointer"
+              onClick={handleToggleMenu}
+              size={24}
+              aria-label="hamburger menu"
+              tabIndex={0}
+            />
+          </span>
           <a href="/">
             <img
               className="h-6 mx-2 cursor-pointer"
