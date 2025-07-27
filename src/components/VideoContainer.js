@@ -3,11 +3,6 @@ import { YOUTUBE_API } from "../utils/constants";
 import VideoCard, { AddVideoCard } from "./VideoCard";
 import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
-import { showError } from "../utils/toast";
-import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "../utils/store/appSlice";
-import { isPageBottom } from "../utils/helper";
-import api from "../utils/api";
 import useFetchPopularVideos from "../hooks/useFetchPopularVideos";
 
 const VideoContainer = () => {

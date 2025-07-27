@@ -55,7 +55,7 @@ const Header = () => {
   };
 
   const handleMobileSearch = (value) => {
-    if (!value) return false;
+    // if (!value) return false;
     setIsMobileSearch(value);
   };
   return (

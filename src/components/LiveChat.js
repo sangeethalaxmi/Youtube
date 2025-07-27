@@ -31,7 +31,7 @@ const LiveChat = () => {
   };
   return (
     <>
-      <div className="ml-2 p-2 w-[95%]  h-[600px]  text-textPrimary overflow-y-scroll flex flex-col-reverse">
+      <div className="ml-2 p-2 w-[95%] my-2  h-[600px]  text-textPrimary overflow-y-scroll flex flex-col-reverse">
         {messages.map((chat, index) => (
           <ChatMessage key={index} name={chat.name} message={chat.message} />
         ))}
@@ -45,7 +45,7 @@ const LiveChat = () => {
           );
           setChatInput("");
         }}
-        className="flex items-center gap-2  w-[95%] cursor-pointer ml-2 p-2 border border-gray-300   rounded-lg "
+        className="flex items-center gap-2 my-2  w-[95%] cursor-pointer ml-2 p-2 border border-gray-300   rounded-lg "
       >
         <img
           className="rounded-[50%] h-6 w-6"

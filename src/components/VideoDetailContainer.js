@@ -16,7 +16,7 @@ const VideoDetailContainer = ({ videoInfo }) => {
     <div className="mt-2 ">
       <h2 className="text-lg font-bold ">{videoInfo?.snippet?.title}</h2>
       <div className="flex items-center">
-        <div className="w-[20%] md:w-[8%]">
+        <div className="w-[15%] md:w-[8%]">
           <Avatar
             img={channelInfo?.snippet?.thumbnails?.default?.url}
             alt="channel logo"

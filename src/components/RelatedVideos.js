@@ -26,4 +26,5 @@ const RelatedVideos = React.memo(({ relatedTitle }) => {
   );
 });
 
+RelatedVideos.displayName = "RelatedVideos";
 export default RelatedVideos;

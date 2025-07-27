@@ -7,12 +7,15 @@ const VideoCard = ({ info }) => {
   const { channelTitle, title, thumbnails, publishedAt } = snippet;
   return (
     <div>
-      <div className="p-2 m-2  shadow-lg h-[280px]">
-        <img
-          className="rounded-lg"
-          src={thumbnails?.medium?.url}
-          alt="thumbnails"
-        ></img>
+      <div className="p-2 m-2  shadow-lg flex flex-col">
+        <div className="aspect-video w-full mb-2">
+          <img
+            className="w-full h-full object-cover rounded-lg"
+            src={thumbnails?.medium?.url}
+            alt="thumbnail"
+          />
+        </div>
+
         <ul>
           <li className="font-bold w-full text-truncate "> {title}</li>
           <li className="mt-1"> {channelTitle}</li>

@@ -9,23 +9,29 @@ import RelatedVideos from "./RelatedVideos";
 import { getVideosDetail } from "../hooks/useFetchSearchResult";
 import Shimmer from "./Shimmer";
 import VideoDetailContainer from "./VideoDetailContainer";
+import { useQuery } from "@tanstack/react-query";
 
 const WatchPage = () => {
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const videoId = searchParams.get("v");
-  const [videoDetails, setVideoDetails] = useState([]);
-  useEffect(() => {
-    const getVideoInfo = async () => {
-      const videoData = await getVideosDetail(videoId);
-      setVideoDetails(videoData[0]);
-    };
-    getVideoInfo();
-  }, [videoId]);
+  // const [videoDetails, setVideoDetails] = useState([]);
+  // useEffect(() => {
+  //   const getVideoInfo = async () => {
+  //     const videoData = await getVideosDetail(videoId);
+  //     setVideoDetails(videoData[0]);
+  //   };
+  //   getVideoInfo();
+  // }, [videoId]);
+  const { data: videoDetails } = useQuery({
+    queryKey: ["watch", videoId],
+    queryFn: () => getVideosDetail(videoId),
+    enabled: !!videoId,
+  });
   useEffect(() => {
     dispatch(closeMenu());
   }, []);
-  if (!videoDetails) {
+  if (!videoId) {
     return <Shimmer />;
   }
   return (
@@ -41,7 +47,7 @@ const WatchPage = () => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
-          <VideoDetailContainer videoInfo={videoDetails} />
+          <VideoDetailContainer videoInfo={videoDetails?.[0]} />
         </div>
         <div className="w-full border border-gray-300 rounded-lg bg-tertiary">
           <div className="p-2 border border-b-gray-300 rounded-t-lg">
@@ -54,7 +60,7 @@ const WatchPage = () => {
 
       <div className="grid customScreen:grid-cols-[55%_45%] grid-cols-1 w-full">
         <CommentsContainer />
-        <RelatedVideos relatedTitle={videoDetails?.snippet?.title} />
+        <RelatedVideos relatedTitle={videoDetails?.[0].snippet?.title} />
       </div>
     </div>
   );
