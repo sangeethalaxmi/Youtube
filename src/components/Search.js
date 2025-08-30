@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import api from "../utils/api";
+import { api } from "../utils/api";
 import Icons from "./Icons";
 import { cacheSuggestions } from "../utils/store/searchSlice";
 import { useNavigate } from "react-router-dom";

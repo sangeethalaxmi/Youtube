@@ -4,7 +4,7 @@ import { showError } from "../utils/toast";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../utils/store/appSlice";
 import { isPageBottom } from "../utils/helper";
-import api from "../utils/api";
+import { api } from "../utils/api";
 export const getVideosDetail = async (videoParamIds) => {
   const videoResponse = await api.get(VIDEO_API + videoParamIds);
 

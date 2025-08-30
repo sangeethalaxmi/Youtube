@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { CHANNEL_API } from "../utils/constants";
-import api from "../utils/api";
+import { api } from "../utils/api";
 
 const useFetchChannelInfo = (channelId) => {
   const [channelInfo, setChannelInfo] = useState([]);

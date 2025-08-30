@@ -4,6 +4,7 @@ import Shimmer from "../../components/Shimmer";
 import RouterError from "../../components/RouterError";
 
 const Signup = lazy(() => import("../../components/Signup"));
+const Login = lazy(() => import("../../components/Login"));
 const Body = lazy(() => import("../../components/Body"));
 const MainContainer = lazy(() => import("../../components/MainContainer"));
 const WatchPage = lazy(() => import("../../components/WatchPage"));
@@ -13,8 +14,16 @@ const appRouter = createBrowserRouter([
   {
     path: "/signup",
     element: (
-      <Suspense fallback={<Shimmer />}>
+      <Suspense fallback={<div>Loading...</div>}>
         <Signup />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/login",
+    element: (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Login />
       </Suspense>
     ),
   },

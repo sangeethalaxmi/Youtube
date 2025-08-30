@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../utils/store/appSlice";
 import { YOUTUBE_API } from "../utils/constants";
-import api from "../utils/api";
+import { api } from "../utils/api";
 import { showError } from "../utils/toast";
 import { isPageBottom } from "../utils/helper";
 
