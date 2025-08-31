@@ -20,7 +20,7 @@ export const CHANNEL_API =
   "https://youtube.googleapis.com/youtube/v3/channels?part=snippet,statistics&key=" +
   process.env.REACT_APP_YOUTUBE_API_KEY;
 
-export const SCROLL_THRESHOLD = 100;
+export const SCROLL_THRESHOLD = 10;
 
 export const LANGUAGES = [
   { label: "English", value: "en" },

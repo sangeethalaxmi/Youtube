@@ -75,5 +75,7 @@ npm install
 # 4. create .env file and add REACT_APP_YOUTUBE_API_KEY = XXX - check https://developers.google.com/workspace/guides/create-credentials to create project and get youtube api key
 
 # 5. Start the development server
-npm start
+# application uses netlify server as backend to handle cross site error in search query of application
+# code present inside functions/youtube-suggest.js file so run netlify dev in local
+npm start (netlify dev)
 ```

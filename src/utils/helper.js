@@ -193,8 +193,9 @@ export const generateRandomText = (length) => {
 };
 
 export const isPageBottom = () => {
-  const scrollPosition = window.innerHeight + window.scrollY;
-  const currentPosition = document.body.offsetHeight - SCROLL_THRESHOLD;
+  const scrollPosition = Math.floor(window.innerHeight + window.scrollY);
+  const currentPosition =
+    Math.floor(document.body.offsetHeight) - SCROLL_THRESHOLD;
   return scrollPosition >= currentPosition;
 };
 

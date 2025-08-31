@@ -6,7 +6,7 @@ const handleError = (error) => {
       const status = error.response?.status || error.status;
       switch (status) {
         case 400:
-          showError(error.response?.data?.error || "Bad Request");
+          showError(error.response?.data?.error?.message || "Bad Request");
           break;
         case 401:
           showError("Unauthorized – Please login again");
@@ -27,7 +27,6 @@ const handleError = (error) => {
   } else if (error.message) {
     showError(error.message);
   }
-
   return Promise.reject(error);
 };
 const api = axios.create();
